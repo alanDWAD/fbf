@@ -1,0 +1,11 @@
+{% if messages %}
+  <div class="row">
+    <div class="col-md-12">
+      {% for message in messages %}
+        <div class="{{ message.tags }}">
+          {{ message|safe }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,127 @@
+{% extends "meta/base.html" %}
+{% block extrahead %}{% include "meta/fragments/filepickerresources.html" %}{% endblock %}
+{% block title %}FreeBetFriend - {{ user.get_full_name|title }}{% endblock %}
+{% block banner %}{% endblock %}
+
+{% block content %}
+  <div class="row space-above">
+
+
+<div class="col-md-12 col-md-offset-0">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Login Details For: {{ user.get_full_name }}</h2>
+        </div>
+        <div class="panel-body">
+              <span class="col-xs-12 col-md-4 col-md-offset-0"> <b>Username:&nbsp;</b>{{ user.username }}</span>
+              <span class="col-xs-12 col-md-4 col-md-offset-0"> <b>Password:&nbsp;</b>
+                  <em class="text-muted">Not Shown</em>:&nbsp;
+                  
+                  <a href="{% url 'change_password' %}" class="btn btn-default btn-sm" style="margin: -5px 0;">
+                      <span class="visible-xs glyphicon glyphicon-pencil"></span>
+                      <span class="hidden-xs">Change</span>
+                  </a></span>
+
+<span class="col-xs-12 col-md-4 col-md-offset-0"> <b>E-mail:&nbsp;</b>{{ user.email }}:&nbsp;<a href="{% url 'change_email' %}" class="btn btn-default btn-sm" style="margin: -5px 0;"><span class="visible-xs glyphicon glyphicon-pencil"></span><span class="hidden-xs">Change</span></a></span>
+
+        </div>
+      </div>
+    </div>
+
+<div class="col-md-12 col-md-offset-0">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">I.D Upload:</h2>
+        </div>
+        <div class="panel-body">
+            <div class="col-xs-12 col-md-12 col-md-offset-0">
+                {% if num_files > 0 %}
+                    <p class="alert alert-warning">
+                    Thank you for uploading your I.D (If it is either a driving licence or national ID card please ensure both sides have been uploaded).<BR> To finalise your registration please  complete the address section.
+                    </p>
+                {% else %}
+                <p class="alert alert-danger">
+                To verify your account please upload only <B>ONE</B> of the following:<BR></br>
+                * The front and back of your driving licence.<BR>
+                * The photo page of your passport.<BR>
+                * Front and back of your national ID card.<BR>
+                </p>
+                
+                {% endif %}
+            </div>
+            <div class="col-md-12 col-md-offset-0">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="col-xs-12 col-md-3 col-md-offset-0">{{ form.document }}</div>
+                <div class="col-xs-12 col-md-1 col-md-offset-0"><button type="submit" >Upload</button></div>
+            </form>
+
+            {% for image in images %}
+            <div class="col-md-1 col-md-offset-0">
+                <img style="width: 100%;" src='{{MEDIA_URL}}/{{ username }}/{{image}}'  alt="ID Image"/>
+                <div style="text-align: center;"><button type = "button" class = "btn btn-danger btn-sm">Delete</button></div>
+            </div>
+            <!-- Indicates a dangerous or potentially negative action -->
+
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-md-offset-0">
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Current Address:</h2>
+        </div>
+        <div class="panel-body">
+
+            <div class="col-md-12 col-md-offset-0">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-xs-12 col-md-12 col-md-offset-0">
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">What form of I.D did you upload?</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.id_choice }}</span>
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-md-offset-0">
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">How long have you lived at your current address?</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.house_occupancy_choice }}</span>
+                    </div>
+        </div>
+            
+            <div class="col-md-12 col-md-offset-0">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="col-xs-12 col-md-6 col-md-offset-0">
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1housenumberorname.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1housenumberorname }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1street1.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1street1 }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1street2.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1street2 }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1townorcity.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1townorcity }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1county.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1county }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1country.label }}</span>
+                        <span class="col-xs-12 col-md-7 col-md-offset-0">{{ form_address.add1country }}</span>
+                        <span class="col-xs-12 col-md-5 col-md-offset-0">{{ form_address.add1postcode.label }}</span>
+                        <span class="col-xs-12 col-md-7     col-md-offset-0">{{ form_address.add1postcode }}</span>
+                    </div>
+                    </div>
+            
+            <div class="col-xs-12 col-md-1 col-md-offset-1">
+                <button type="submit" >Upload</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+  </div>
+{% endblock %}

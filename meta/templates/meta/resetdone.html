@@ -1,0 +1,17 @@
+{% extends "meta/base.html" %}
+{% block title %}Donations With A Difference - Password Changed{% endblock %}
+{% block banner %}{% endblock %}
+
+{% block content %}
+  <div class="row space-above">
+    <div class="col-md-12">
+      <div class="alert alert-success">
+        <b>Password Changed</b>
+        <p>
+          Your password has been changed. You can now use your new password to <a href="{% url 'login' %}" class="alert-link">sign in</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

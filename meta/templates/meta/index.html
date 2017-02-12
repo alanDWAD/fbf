@@ -1,0 +1,39 @@
+{% extends "meta/base.html" %}
+{% block title %}FreeBetFriend{% endblock %}
+{% block banner %}<br/>{% endblock %}
+
+{% block content %}
+  {% if request.GET.passwordchanged %}
+    <div class="alert">
+        Password changed.
+    </div>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <div class="alert alert-warning">
+      You are already signed in. If you wish to sign in as a different user,
+      please <a href="{% url 'logout' %}?next={% url 'login' %}" class="alert-link">sign out</a> first.
+    </div>
+  {% else %}
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title"><span style="color:#C5D9F1;">Free</span><span style="color:#8DB4E2;">Bet</span><span style="color:#538DD5;">Friend</span>&nbsp;<span  style="color:#538DD5;" class="glyphicon glyphicon-piggy-bank"></span></h2>
+          </div>
+          <div class="panel-body">
+            <a href="login/">
+                <div class="alert alert-success">
+                    <p class="text-center"><strong>SIGN IN</strong><br> Already a member?  Then click here.</p>
+                </div>
+            </a>
+            <a href="register/">
+                <div class="alert alert-info">
+                    <p class="text-center"><strong>SIGN UP</strong><br> New to FreeBetFriend?  Then click here.</p>
+                </div>
+            </a>          </div>
+        </div>
+      </div>
+    </div>
+
+  {% endif %}
+{% endblock %}

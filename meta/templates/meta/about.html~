@@ -1,0 +1,35 @@
+{% extends "meta/base.html" %}
+{% block title %}About DWAD{% endblock %}
+
+{% block banner %}
+  <div class="row">
+    <div class="col-md-12">
+      <h1>
+        About DWAD
+      </h1>
+      <p class="intro">
+        {% include "meta/fragments/blurb.html" %}
+        If you feel you can help us achieve this by doing something different, please
+        get in touch at <a href="mailto:theteam@dwad.org">theteam@dwad.org</a>.
+      </p>
+    </div>
+  </div>
+{% endblock %}
+{% block content %}
+  <h2 class="page-header">Trustees</h2>
+  <div class="row">
+    {% for person in trustees %}
+      {% include "meta/fragments/biography.html" %}
+      {% if forloop.counter|divisibleby:"2" %}
+        <div class="clearfix visible-sm"></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <h2 class="page-header">Friends of DWAD</h2>
+  <div class="row">
+    {% for person in others %}
+      {% include "meta/fragments/biography.html" %}
+    {% endfor %}
+  </div>
+{% endblock %}
+

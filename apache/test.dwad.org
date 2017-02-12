@@ -1,0 +1,55 @@
+<VirtualHost *:80>
+    ServerName test.dwad.org
+	ServerAdmin webmaster@localhost
+    ServerSignature Off
+
+    WSGIScriptAlias / /usr/share/dwad/dwad/wsgi_demo.py
+    WSGIDaemonProcess test.dwad.org python-path=/usr/share:/usr/share/dwad-virtualenv/lib/python2.7/site-packages
+    WSGIProcessGroup test.dwad.org
+    
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+    <Location />
+        AuthType Basic
+        AuthName "Authorised Users Only"
+        AuthBasicProvider file
+        AuthUserFile /usr/share/dwad/dwad/demo_passwords
+        Require valid-user
+    </Location>
+
+    Alias /robots.txt /var/www/dwad-static/robots.txt
+    Alias /favicon.ico /var/www/dwad-static/favicon.ico
+    Alias /static /var/www/dwad-static
+    Alias /resources /var/www/dwad-resources
+
+    <Directory /usr/share/dwad/dwad>
+      <Files wsgi.py>
+        Order deny,allow
+        Allow from all
+      </Files>
+    </Directory>
+
+    ExpiresActive On
+    ExpiresByType image/png "access plus 10 years"
+    ExpiresByType image/jpeg "access plus 10 years"
+    ExpiresByType text/css "access plus 10 years"
+    ExpiresByType text/javascript "access plus 10 years"
+    ExpiresByType application/javascript "access plus 10 years"
+    FileETag none
+
+	ErrorLog ${APACHE_LOG_DIR}/error.log
+	LogLevel warn
+	CustomLog ${APACHE_LOG_DIR}/access.log combined
+    
+</VirtualHost>
+

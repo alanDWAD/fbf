@@ -1,0 +1,84 @@
+{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+  <head>
+    <title>{% block title %}DWAD.org Administration Console{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}?20160102{% endblock %}" />
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}?20140704" rel="stylesheet"/>
+    <link href="{% static 'dwad.css' %}?20140703" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'icon-iphone-retina.png' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'icon-ipad-retina.png' %}" />
+    {% block extrastyle %}{% endblock %}
+    <style>
+      ul li {list-style-type: none; padding: 0;}
+      li {font-size: inherit; line-height: inherit;}
+      td, th {padding: 5px;}
+      .submit-row a.deletelink {height: inherit;}
+      .inline-group .tabular tr.has_original td {padding-top: 5px;}
+      .original p {display: none;}
+      #footer {padding: inherit;}
+      input[type="file"] {display: inline-block;}
+      .alert {margin-bottom: 0;}
+      div.breadcrumbs {margin-top: 20px; padding: 10px 20px;}
+    </style>
+    <script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block extrahead %}{% endblock %}
+    {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+  </head>
+  {% load i18n %}
+
+  <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+    <div id="wrap">
+      <div class="container">
+        {% if not is_popup %}
+          {% include "meta/fragments/navbar.html" %}
+          {% block breadcrumbs %}
+            <div class="breadcrumbs">
+              <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+              {% if title %} &rsaquo; {{ title }}{% endif %}
+            </div>
+          {% endblock %}
+        {% endif %}
+
+        {% block messages %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="space-above{% if message.tags %} {{ message.tags }}{% endif %}">{{ message|capfirst }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endblock messages %}
+
+        <div class="row">
+          <div class="col-md-12">
+            {% block pretitle %}{% endblock %}
+            {% block content_title %}{% if title %}<h2 class="page-header">{{ title }}</h2>{% endif %}{% endblock %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="{% block width %}col-md-12{% endblock %}">
+            {% block content %}
+              {% block object-tools %}{% endblock %}
+              {{ content }}
+            {% endblock %}
+          </div>
+          {% block sidebar %}{% endblock %}
+        </div>
+      </div>
+    </div>
+    {% block footer %}
+      <div id="footer">
+        <div class="container">
+          <div class="row">
+            <p class="col-md-12 text-muted credit">
+              {% include "meta/fragments/footertext.html" %}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+  </body>
+</html>

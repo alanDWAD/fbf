@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync --rsh="ssh" --delete-after --exclude=".*" --exclude="*.sh" --exclude="*.pyc" --exclude="media" -rz ./ tingeyal@138.68.135.15:/usr/share/freebetfriend

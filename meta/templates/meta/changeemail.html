@@ -1,0 +1,37 @@
+{% extends "meta/base.html" %}
+{% block title %}Donations With A Difference - Change E-mail Address{% endblock %}
+{% block banner %}{% endblock %}
+
+{% block content %}
+  <div class="row space-above">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2 class="panel-title">Change E-mail Address</h2>
+        </div>
+        <div class="panel-body">
+          <form class="form-horizontal" role="form" method="post" action="">
+            {% csrf_token %}
+            <fieldset>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">{{ form.new_email.label }}:</label>
+                <div class="col-sm-8">
+                  {{ form.new_email }}
+                  <div class="text-danger">
+                    {% for error in form.new_email.errors %}{{ error }}<br/>{% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="text-right col-sm-12">
+                  <button type="submit" class="btn btn-primary">Change E-mail</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
