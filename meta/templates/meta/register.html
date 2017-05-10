@@ -1,5 +1,5 @@
 {% extends "meta/base.html" %}
-{% block title %}Donations With A Difference - Create Account{% endblock %}
+{% block title %}FreeBetFriend - Create Account{% endblock %}
 {% block extrahead %}<style>.checkbox {display: inline-block;}</style>{% endblock %}
 {% block banner %}{% endblock %}
 
@@ -7,14 +7,14 @@
 {% block content %}
   {% if user.is_authenticated %}
     <div class="alert alert-warning space-above">
-      You are already signed in. There is no need to register a new DWAD account.
+      You are already signed in. There is no need to register a new FreeBetFriend account.
     </div>
   {% else %}
     <div class="row space-above">
       <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2 class="panel-title">Create Account</h2>
+            <h2 class="panel-title">Create Account:</h2>
           </div>
           <div class="panel-body">
 
@@ -31,7 +31,7 @@
                       </div>
                   </div>
               </fieldset>
-              <fieldset><legend>Login Details</legend>
+              <fieldset><legend>Login Details:</legend>
                 <div class="form-group">
                   <label class="col-sm-5 control-label">{{ form.username.label }}:</label>
                   <div class="col-sm-7">
@@ -56,6 +56,17 @@
                     {{ form.password2 }}
                     <div class="text-danger">
                       {% for error in form.password2.errors %}{{ error }}<br/>{% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+                <fieldset><legend>Contact Details:</legend>
+                <div class="form-group">
+                  <label class="col-sm-5 control-label">{{ form.email.label }}:</label>
+                  <div class="col-sm-7">
+                    {{ form.email }}
+                    <div class="text-danger">
+                      {% for error in form.email.errors %}{{ error }}<br/>{% endfor %}
                     </div>
                   </div>
                 </div>

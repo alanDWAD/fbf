@@ -78,18 +78,29 @@ def profile(request, extra_context={}):
         img_list = ""
     
     username = request.user.username
-    
-    
-    if request.method == 'POST':
+
+    if request.method == 'POST' and 'upload' in request.POST:
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
             return redirect('profile')
+    elif request.method == 'POST' and 'address' in request.POST:
+        return redirect('profile')
+    elif request.method == 'POST':
+
+
+        for image in img_list:
+            if image in request.POST:
+                os.remove("media/" + request.user.username + "/" + image)
+
+        return redirect('profile')
+
     else:
         form = DocumentForm()
         form_address = ProfileFormAddress()
+
     return render(request, 'meta/profile.html', {
                   'form': form,
                   'images': img_list,
