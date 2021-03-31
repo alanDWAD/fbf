@@ -25,4 +25,4 @@ six==1.10.0
 urllib3==1.14
 tweepy==3.5.0
 wsgiref==0.1.2
-lxml===3.4.2
+lxml===4.6.3
